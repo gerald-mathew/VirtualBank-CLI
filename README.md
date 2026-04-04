@@ -180,6 +180,7 @@ Author: Gerald Chukwudera Mathew
 
 License
 -------
-
+**nlohmann JSON (json.hpp)** - License: MIT License - Copyright (c) 2013-2023 Niels Lohmann - Purpose: JSON parsing and serialization in the CLI Banking System - Repository: [https://github.com/nlohmann/json](https://github.com/nlohmann/json)
+  
 Copyright © Gerald Chukwudera Mathew
 This project is under development and subject to updates.
