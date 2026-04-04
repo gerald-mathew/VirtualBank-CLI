@@ -1,11 +1,11 @@
-# cpp-CLI-VirtualBank
-Virtual Bank of C++ (CLI Banking System)
+# Virtual Bank of C++ (CLI Banking System)
 
 A Command Line Interface (CLI) banking system built with modern C++ (OOP principles) and JSON-based persistence using nlohmann JSON.
 
 This project simulates core banking operations such as account creation, deposits, withdrawals, transfers, and admin management — all within a structured, modular C++ architecture.
 
 Features
+--------
 
 - Account Creation with PIN authentication
 - Deposit & Withdrawal system
@@ -18,7 +18,8 @@ Features
 - Admin account deletion system
 - Full account inspection (Admin)
 
-Project Architecture (OOP Breakdown):
+Project Architecture (OOP Breakdown)
+------------------------------------
 
 1. Account Class (Core Banking Logic)
 
@@ -89,6 +90,7 @@ The engine of interaction:
 - Connects UI → Logic
 
 Menu System:
+------------
 1. Create Account
 2. Transfer
 3. Deposit
@@ -105,23 +107,16 @@ Admin can:
 - View all users
 - Delete accounts
 
-Project Structure
+## Project Structure
 
-VirtualBank v1.0.0/
-│
-├── include/
-│   ├── account.hpp
-│   ├── ATM.hpp
-│   └── json.hpp
-│
-├── src/
-│   ├── account.cpp
-│   ├── ATM.cpp
-│   └── main.cpp
-│
-├── accounts.json
-├── compile.bat
+```
+.
+├── include/        # Header files
+├── src/            # Source files
+├── accounts.json   # Auto-generated data file
+├── compile.bat     # Build script
 └── README.md
+```
 
 Compilation Guide
 -----------------
@@ -153,6 +148,7 @@ Important:
 bash compile.bat
 
 How It Works:
+-------------
 
 1. Program loads accounts from accounts.json
 2. User interacts via CLI
@@ -172,6 +168,7 @@ Security Notes
 - Admin account is protected
 
 Future Improvements:
+--------------------
 
 - GUI version using QT
 - Multi-threaded transactions for real-time concurrency.
