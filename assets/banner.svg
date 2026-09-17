@@ -13,8 +13,11 @@
   <rect width="1000" height="220" rx="20" fill="url(#glow)"/>
   <rect x="0.5" y="0.5" width="999" height="219" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
   <rect x="0" y="0" width="7" height="220" rx="3.5" fill="#22c55e"/>
-  <rect x="46" y="60" width="100" height="100" rx="24" fill="#22c55e" fill-opacity="0.14" stroke="#22c55e" stroke-opacity="0.55"/>
-  <text x="96" y="126" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="40" font-weight="700" fill="#22c55e">VB</text>
+  <g transform="translate(46 60)">
+    <rect width="100" height="100" rx="22" fill="#ffffff"/>
+    <rect x="0.5" y="0.5" width="99" height="99" rx="21.5" fill="none" stroke="#0b1220" stroke-opacity="0.10"/>
+    <g transform="translate(18 18) scale(2.6667)" fill="#00599C"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"/></g>
+  </g>
   <rect x="812" y="30" width="152" height="30" rx="15" fill="#22c55e" fill-opacity="0.14" stroke="#22c55e" stroke-opacity="0.45"/>
   <text x="888" y="50" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="600" fill="#22c55e">C++ / CLI</text>
   <text x="176" y="104" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="38" font-weight="800" fill="#e8eef7">VirtualBank-CLI</text>
