@@ -1,186 +1,118 @@
-# Virtual Bank of C++ (CLI Banking System)
+<p align="center">
+  <picture>
+    <img src="assets/banner.svg" alt="VirtualBank-CLI" width="820">
+  </picture>
+</p>
 
-A Command Line Interface (CLI) banking system built with modern C++ (OOP principles) and JSON-based persistence using nlohmann JSON.
+<p align="center">
+  <strong>A command-line banking simulator written in modern C++ with object-oriented design and JSON persistence.</strong>
+</p>
 
-This project simulates core banking operations such as account creation, deposits, withdrawals, transfers, and admin management — all within a structured, modular C++ architecture.
+<p align="center">
+  <img src="https://img.shields.io/badge/C%2B%2B-23-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++23">
+  <img src="https://img.shields.io/badge/interface-CLI-22c55e?style=for-the-badge&logo=gnubash&logoColor=white" alt="CLI">
+  <img src="https://img.shields.io/badge/storage-nlohmann%2Fjson-22c55e?style=for-the-badge&logo=json&logoColor=white" alt="nlohmann/json">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-455a64?style=for-the-badge" alt="Cross-platform">
+  <img src="https://img.shields.io/badge/build-MSVC%20%7C%20g%2B%2B%20%7C%20clang%2B%2B-455a64?style=for-the-badge" alt="Compilers">
+  <img src="https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge" alt="MIT license">
+</p>
 
-Features
---------
+VirtualBank simulates the everyday operations of a small bank: opening accounts, depositing and withdrawing funds, transferring money between customers, resetting PINs and inspecting a full audit trail. Every financial action is written straight to `accounts.json`, so the ledger survives between runs.
 
-- Account Creation with PIN authentication
-- Deposit & Withdrawal system
-- Secure fund transfers between users
-- PIN hashing & validation
-- Account types (Savings, Current, Fixed Deposit)
-- Transaction history tracking
-- Persistent storage using JSON
-- Hidden Admin Mode (6789)
-- Admin account deletion system
-- Full account inspection (Admin)
+## Features
 
-Project Architecture (OOP Breakdown)
-------------------------------------
+| Area | Capability |
+| --- | --- |
+| Accounts | Create accounts with a unique username and a four-digit PIN |
+| Money | Deposit, withdraw and transfer funds with balance validation |
+| Types | Savings, current and fixed-deposit account types |
+| Security | PIN validation on every sensitive action and a configurable PIN reset |
+| History | Every deposit, withdrawal, transfer and type change is timestamped |
+| Persistence | Automatic load and save to `accounts.json` |
+| Admin | Hidden admin mode (option `6789`) to inspect and delete accounts |
 
-1. Account Class (Core Banking Logic)
+## Architecture
 
-Encapsulates all account-related data and operations.
+The project separates the domain model from the system layer:
 
-Private Members (Encapsulation)
-- std::string accountType
-- std::string acctName
-- std::string pin
-- std::vector<std::string> transactionHistory
-- double accountBalance
+| Component | File | Responsibility |
+| --- | --- | --- |
+| `Account` | `include/account.hpp`, `src/account.cpp` | Encapsulated balance, PIN, type and transaction history with the banking operations |
+| ATM module | `include/ATM.hpp`, `src/ATM.cpp` | JSON load/save, PIN hashing, authentication and shared input validation |
+| CLI | `src/main.cpp` | Menu loop and user interaction |
 
-Key Methods
-- deposit() -> Adds money + logs transaction
-- withdraw() -> Deducts money with validation
-- makeTransfer() -> Transfers between users
-- resetPin() -> Secure PIN update
-- setAccountType() -> Validates and updates type
-- displayInfo() -> Prints full account details
+```text
+.
+├── include/
+│   ├── account.hpp     # Account class definition
+│   ├── ATM.hpp         # Shared system functions
+│   └── json.hpp        # nlohmann/json (vendored, MIT)
+├── src/
+│   ├── account.cpp     # Banking logic
+│   ├── ATM.cpp         # Persistence, hashing and validation
+│   └── main.cpp        # Menu-driven CLI
+├── compile.bat         # Polyglot build script (Windows + Unix)
+└── accounts.json       # Auto-generated ledger (created on first write)
+```
 
-Example (Deposit Logic):
-bool Account::deposit(double amount) {
-    if (amount > 0) {
-        accountBalance += amount;
-        transactionHistory.push_back("Deposit...");
-        saveAccounts();
-        return true;
-    }
-    return false;
-}
+## Build
 
-Every financial action updates:
-- Balance
-- Transaction history
-- JSON storage
+Compile from the project root.
 
-2. Global Account Database
+**MSVC (Windows)**
 
-std::unordered_map<std::string, Account> account;
+```bat
+cl /std:c++latest /EHsc /nologo /W4 /MTd src\account.cpp src\ATM.cpp src\main.cpp /Fe:VirtualBank.exe
+```
 
-- Acts like a mini database
-- Key = username
-- Value = Account object
+**g++ (Linux / macOS / MinGW)**
 
-3. ATM Module (System Control Layer)
+```bash
+g++ -std=c++23 -Wall src/account.cpp src/ATM.cpp src/main.cpp -Iinclude -o VirtualBank
+```
 
-Handles:
-- File I/O (JSON)
-- Authentication
-- Input validation
-- System utilities
+Or use the bundled polyglot script, which detects MSVC, `g++` or `clang++`:
 
-PIN Hashing:
-std::string hashPin(const std::string &inputPin) {
-    std::hash<std::string> hasher;
-    return std::to_string(hasher(inputPin));
-}
+```bash
+bash compile.bat        # Linux / macOS
+compile.bat             # Windows
+```
 
-JSON Persistence:
-- loadAccounts() -> Reads from accounts.json
-- saveAccounts() -> Writes to accounts.json
+## Usage
 
-4. CLI Interface (main.cpp)
+Run the resulting binary and choose from the menu:
 
-The engine of interaction:
-- Menu-driven system
-- Handles user flows
-- Connects UI → Logic
-
-Menu System:
-------------
+```text
 1. Create Account
 2. Transfer
-3. Deposit
-4. Withdraw
+3. Deposit Money
+4. Withdraw Cash
 5. Change PIN
-6. Check Info
+6. Check Account Info
 7. Change Account Type
 8. Exit
-
-Hidden Admin Mode:
-Enter: 6789
-
-Admin can:
-- View all users
-- Delete accounts
-
-## Project Structure
-
-```
-.
-├── include/        # Header files
-├── src/            # Source files
-├── accounts.json   # Auto-generated data file
-├── compile.bat     # Build script
-└── README.md
 ```
 
-Compilation Guide
------------------
+Entering `6789` at the menu opens the hidden admin console, where accounts can be listed or deleted. The admin account itself is never written to disk and is protected from deletion.
 
-Compile from the project root directory.
+## Security notes
 
-MSVC (Windows):
-cl /std:c++latest /EHsc /nologo /W4 /MTd src\account.cpp src\ATM.cpp src\main.cpp /Fe:VirtualBank.exe
+PINs are never stored as plain text, but this project is a learning exercise rather than a production system:
 
-g++ (Cross-Platform):
+- PINs are hashed with `std::hash`, which is fast and non-reversible but **not** a cryptographic hash, and its output is not guaranteed to be portable between standard libraries. A production system should use a salted, adaptive hash such as Argon2 or bcrypt.
+- A four-digit PIN has a very small keyspace, so treat the ledger as a toy dataset.
+- Malformed or corrupt `accounts.json` files are now reported and skipped instead of terminating the program.
 
-Windows (MinGW / g++):
-g++ -std=c++20 src/account.cpp src/ATM.cpp src/main.cpp -Iinclude -o VirtualBank.exe
+## Roadmap
 
-macOS:
-g++ -std=c++20 src/account.cpp src/ATM.cpp src/main.cpp -Iinclude -o VirtualBank
+- Replace `std::hash` with a portable cryptographic PIN hash.
+- Optional Qt desktop front end.
+- Statement export to PDF and multi-currency support.
 
-Linux:
-g++ -std=c++20 src/account.cpp src/ATM.cpp src/main.cpp -Iinclude -o VirtualBank
+## License
 
-Quick Compile (All OS):
+Released under the [MIT License](LICENSE). Third-party: [nlohmann/json](https://github.com/nlohmann/json) (MIT, (c) 2013-2023 Niels Lohmann).
 
-You can also use:
-compile.bat
-
-Important:
-- On Windows -> double-click or run normally
-- On Linux/macOS -> run with:
-bash compile.bat
-
-How It Works:
--------------
-
-1. Program loads accounts from accounts.json
-2. User interacts via CLI
-3. Operations update:
-   - Memory (unordered_map)
-   - File (accounts.json)
-4. Every transaction is logged with:
-Amount + Timestamp (time ID)
-
-Security Notes
---------------
-
-- PINs are hashed (not stored as plain text)
-- Basic validation ensures:
-  - PIN = 4 digits
-  - Valid transaction amounts
-- Admin account is protected
-
-Future Improvements:
---------------------
-
-- GUI version using QT
-- Multi-threaded transactions for real-time concurrency.
-- Account statement export to PDF.
-- Support for multiple currencies.
-
-Author: Gerald Chukwudera Mathew
-	“The Programmer — Virtual Bank of C++”
-
-License
--------
-**nlohmann JSON (json.hpp)** - License: MIT License - Copyright (c) 2013-2023 Niels Lohmann - Purpose: JSON parsing and serialization in the CLI Banking System - Repository: [https://github.com/nlohmann/json](https://github.com/nlohmann/json)
-  
-Copyright © Gerald Chukwudera Mathew
-This project is under development and subject to updates.
+<p align="center"><sub>Built and maintained by <a href="https://github.com/Gerald-Mathew">Gerald-Mathew</a></sub></p>

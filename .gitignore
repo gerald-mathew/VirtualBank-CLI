@@ -1,0 +1,18 @@
+# Build output
+VirtualBank
+VirtualBank.exe
+*.o
+*.obj
+*.exe
+*.pdb
+*.ilk
+
+# Runtime data (created by the program)
+accounts.json
+
+# Editors / OS
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
