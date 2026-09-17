@@ -20,16 +20,29 @@ void loadAccounts() {
     std::ifstream file("./accounts.json");
     if (!file.is_open()) return;
 
-    const json accounts = json::parse(file);
+    json accounts;
+    try {
+        file >> accounts;
+    } catch (const json::exception& error) {
+        std::cerr << "Warning: accounts.json could not be read (" << error.what()
+                  << "). Starting with an empty ledger." << std::endl;
+        return;
+    }
+    if (!accounts.is_array()) return;
+
     for (const auto& anAccount : accounts) {
-        const std::string username = anAccount.value("Username", "");
-        const std::string name = anAccount.value("Account name", "");
-        const std::string hashedPin = anAccount.value("User Pin", "");
-        const std::string type = anAccount.value("Account type", "");
-        const double balance = anAccount.value("Account balance", 0);
-		const std::vector <std::string> transactionHistory = anAccount.value("Transaction History", std::vector <std::string>{});
-        if(username.empty()) continue;
-		account.emplace(username, Account(name, hashedPin, type, balance, transactionHistory));
+        try {
+            const std::string username = anAccount.value("Username", "");
+            const std::string name = anAccount.value("Account name", "");
+            const std::string hashedPin = anAccount.value("User Pin", "");
+            const std::string type = anAccount.value("Account type", "");
+            const double balance = anAccount.value("Account balance", 0);
+            const std::vector <std::string> transactionHistory = anAccount.value("Transaction History", std::vector <std::string>{});
+            if(username.empty()) continue;
+            account.emplace(username, Account(name, hashedPin, type, balance, transactionHistory));
+        } catch (const json::exception&) {
+            continue;
+        }
     }
     file.close();
 }
