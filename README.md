@@ -115,4 +115,4 @@ PINs are never stored as plain text, but this project is a learning exercise rat
 
 Released under the [MIT License](LICENSE). Third-party: [nlohmann/json](https://github.com/nlohmann/json) (MIT, (c) 2013-2023 Niels Lohmann).
 
-<p align="center"><sub>Built and maintained by <a href="https://github.com/gerald-mathew">Gerald-Mathew</a></sub></p>
+<p align="center"><sub>Built and maintained by <a href="https://github.com/gerald-mathew">Mathew Gerald Chukwudera</a></sub></p>
