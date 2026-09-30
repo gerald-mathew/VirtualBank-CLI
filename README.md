@@ -5,6 +5,10 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/gerald-mathew/VirtualBank-CLI/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/gerald-mathew/VirtualBank-CLI/actions/workflows/ci.yml/badge.svg"></a>
+</p>
+
+<p align="center">
   <strong>A command-line banking simulator written in modern C++ with object-oriented design and JSON persistence.</strong>
 </p>
 
